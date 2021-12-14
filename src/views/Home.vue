@@ -1,22 +1,22 @@
 <template>
+  <h1>Movie Lists</h1>
   <div>
-    <div v-for="list in lists">
-      {{ list.name }}
+    <div v-for="list in lists" class="lists-container">
+      <div class="list-card">
+        <h3>{{ list.name }}</h3>
+        <div v-for="(item, index) in list.items">
+          <div>{{ index + 1 }}. {{ item }}</div>
+        </div>
+      </div>
     </div>
-    <form>
-      <input
-        type="text"
-        v-model="newList.name"
-        @keypress.enter.prevent="handleSubmit"
-      >
-    </form>
   </div>
+  <button @click="$router.push({ name: 'add' })">Add a list</button>
 </template>
 
 <script>
 // @ is an alias to /src
 import { ref } from 'vue';
-import { collection, onSnapshot, addDoc } from 'firebase/firestore';
+import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from '@/firebase/config';
 import addList from '../composables/addList';
 
@@ -24,12 +24,8 @@ export default {
   name: 'Home',
   setup() {
     const listsRef = collection(db, 'lists');
-    // const { addDoc } = addList;
     
     let lists = ref([]);
-    let newList = ref({
-      name: null
-    });
 
     // get real time collection data
     onSnapshot(listsRef, (snapshot) => {
@@ -41,16 +37,19 @@ export default {
         });     
     });
 
-    const handleSubmit = async () => {
-
-      await addDoc(listsRef, {
-        name: newList.value.name
-      }).then (() => {
-        console.log('job done mate');
-      });
-    }
-
-    return { lists, newList, handleSubmit };
+    return { lists };
   }
 }
 </script>
+
+<style scoped>
+  .lists-container {
+    display: flex;  
+  }
+
+  .list-card {
+    border: 1px solid green;
+    margin: 10px;
+    padding: 10px;
+  }
+</style>
