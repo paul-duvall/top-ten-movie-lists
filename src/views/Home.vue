@@ -13,6 +13,10 @@
   <button @click="$router.push({ name: 'add' })">Add a list</button>
 </template>
 
+// Jobs
+// - Form validation? Mustn't submit without name + at least one list item
+// - pre-submit clean-up - remove blank items from items array
+
 <script>
 // @ is an alias to /src
 import { ref } from 'vue';

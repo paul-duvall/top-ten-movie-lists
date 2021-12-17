@@ -22,13 +22,18 @@
 
 <script>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router'
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '@/firebase/config';
+import { useToast } from "vue-toastification";
 
 export default {
     name: 'AddList',
 
     setup() {
+        const router = useRouter();
+        const toast = useToast();
+
         const listsRef = collection(db, 'lists');
 
         let newList = ref({
@@ -41,7 +46,14 @@ export default {
                 items: newList.value.items,
                 name: newList.value.name
             }).then (() => {
-                console.log('job done mate');
+                toast.success("You have successfully added your new list: " + newList.value.name, 
+                    { timeout: 3000 }
+                );
+                router.push({ name: 'home' });
+            }).catch ((error) => {
+                toast.error("There was a problem with your submission. Please try again.", 
+                    { timeout: 3000 }
+                );
             });
         }
 
