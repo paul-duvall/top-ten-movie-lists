@@ -7,6 +7,7 @@
         <div v-for="(item, index) in list.items">
           <div>{{ index + 1 }}. {{ item }}</div>
         </div>
+        <button @click="$router.push({ name: 'edit', params: { id: list.id } })">Edit</button>
       </div>
     </div>
   </div>
