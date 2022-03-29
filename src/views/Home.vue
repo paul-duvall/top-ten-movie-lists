@@ -1,22 +1,28 @@
 <template>
-  <h1>Movie Lists</h1>
-  <div>
-    <div v-for="list in lists" class="lists-container">
-      <div class="list-card">
-        <h3>{{ list.name }}</h3>
-        <div v-for="(item, index) in list.items">
-          <div>{{ index + 1 }}. {{ item }}</div>
+  <nav class="navbar bg-dark">
+    <div class="container">
+      <h1 class="navbar-brand text-light">Top Ten Movies</h1>
+      <button @click="$router.push({ name: 'add' })" class="btn btn-light">Add a list</button>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row text-center g-4 d-flex flex-row">
+      <div v-for="list in lists" class="col-12 col-sm-6 col-md-4">
+        <div class="card bg-primary text-white mt-4">
+          <div v-rainbow class="card-header">{{ list.name }}</div>
+          <div class="card-body text-left">
+            <div v-for="(item, index) in list.items">
+              <div>{{ index + 1 }}. {{ item }}</div>
+            </div>
+            <button @click="$router.push({ name: 'edit', params: { id: list.id } })" class="btn btn-light mt-2">
+              Edit
+            </button>
+          </div>
         </div>
-        <button @click="$router.push({ name: 'edit', params: { id: list.id } })">Edit</button>
       </div>
     </div>
   </div>
-  <button @click="$router.push({ name: 'add' })">Add a list</button>
 </template>
-
-// Jobs
-// - Form validation? Mustn't submit without name + at least one list item
-// - pre-submit clean-up - remove blank items from items array
 
 <script>
 // @ is an alias to /src
