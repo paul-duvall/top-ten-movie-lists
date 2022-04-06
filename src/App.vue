@@ -1,10 +1,14 @@
 <template>
-  <!-- <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div> -->
-  <router-view/>
+    <Header />
+    <router-view/>
 </template>
 
-<style>
-</style>
+<script>
+import Header from '@/components/App/Header';
+
+export default {
+    components: {
+      Header
+    },
+}
+</script>
