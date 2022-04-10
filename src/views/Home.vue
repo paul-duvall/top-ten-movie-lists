@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="row text-center g-4 d-flex flex-row mt-2">
+    <div class="row text-center g-4 mt-2">
       <button
                 @click="$router.push({ name: 'add' })"
                 class="btn btn-primary"
@@ -24,7 +24,7 @@
     </div>
     <div class="row text-center g-4 d-flex flex-row">
       <div v-for="list in lists" class="col-12 col-sm-6 col-md-4">
-        <div class="card bg-primary text-white mt-4">
+        <div class="card bg-light mt-4">
           <div class="card-header">{{ list.name }}</div>
           <div class="card-body text-left">
             <div v-for="(item, index) in list.items">
@@ -32,7 +32,7 @@
             </div>
             <button
                 @click="$router.push({ name: 'edit', params: { id: list.id } })"
-                class="btn btn-light mt-2"
+                class="btn btn-primary mt-2"
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -88,16 +88,6 @@ export default {
 </script>
 
 <style scoped>
-  .lists-container {
-    display: flex;  
-  }
-
-  .list-card {
-    border: 1px solid green;
-    margin: 10px;
-    padding: 10px;
-  }
-
   .feather-edit {
     margin-left: 0.5rem;
     width: 1.1rem;

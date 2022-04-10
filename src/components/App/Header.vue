@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar bg-dark">
         <div class="container">
-            <h1 class="navbar-brand text-light">Top Ten Movies</h1>
+            <h1 class="navbar-brand text-light">Your Film Lists</h1>
         </div>
     </nav>
 </template>
