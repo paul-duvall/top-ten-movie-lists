@@ -92,5 +92,4 @@ export default {
     margin-left: 0.5rem;
     width: 1.1rem;
 }
-
 </style>

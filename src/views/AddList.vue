@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row text-center m-3">
-        <h2>Add a new list</h2>
+        <h2>Add your list</h2>
         <div class="card bg-light mt-4">
             <form class="m-3">
                 <div class="form-group row">
