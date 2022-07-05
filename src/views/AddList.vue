@@ -35,7 +35,10 @@
                     <small id="titleHelp" class="form-text text-muted">Need some inspiration for a list idea? Click the lightning bolt!</small>
                 </div>
                 <h3 class="mt-3">Films</h3>
-                <div v-for="(item, index) in newList.items" class="form-group row mt-3">
+                <div
+                    v-for="(item, index) in newList.items"
+                    class="form-group row mt-3"
+                >
                     <label
                         :for="'choice' + (index + 1)"
                         class="col-2"
@@ -80,7 +83,8 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import { useStore } from 'vuex';
 import { useRouter } from 'vue-router'
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '@/firebase/config';
@@ -92,6 +96,9 @@ export default {
     setup() {
         const router = useRouter();
         const toast = useToast();
+        const store = useStore();
+
+        let user = computed(() => store.state.user);
 
         const listsRef = collection(db, 'lists');
 
@@ -120,7 +127,8 @@ export default {
         const handleSubmit = async () => {
             await addDoc(listsRef, {
                 items: newList.value.items,
-                name: newList.value.name
+                name: newList.value.name,
+                userId: user.value.uid
             }).then (() => {
                 toast.success("You have successfully added your new list: " + newList.value.name, 
                     { timeout: 3000 }

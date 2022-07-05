@@ -31,6 +31,7 @@
               <div>{{ index + 1 }}. {{ item }}</div>
             </div>
             <button
+                v-if="list.userId === user.uid"
                 @click="$router.push({ name: 'edit', params: { id: list.id } })"
                 class="btn btn-primary mt-2"
             >
@@ -59,7 +60,8 @@
 
 <script>
 // @ is an alias to /src
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import { useStore } from 'vuex';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from '@/firebase/config';
 import addList from '../composables/addList';
@@ -68,8 +70,11 @@ export default {
   name: 'Home',
 
   setup() {
+    const store = useStore();
+
+    let user = computed(() => store.state.user);
+
     const listsRef = collection(db, 'lists');
-    
     let lists = ref([]);
 
     // get real time collection data
@@ -82,7 +87,7 @@ export default {
         });     
     });
 
-    return { lists };
+    return { lists, user };
   }
 }
 </script>
